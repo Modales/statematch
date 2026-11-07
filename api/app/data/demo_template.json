@@ -1,0 +1,81 @@
+{
+  "id": "4508070640_00090",
+  "purchase_document": "4508070640",
+  "item": "00090",
+  "vendor": "vendorID_0118",
+  "vendor_name": "vendor_0117",
+  "category": "3-way match, invoice before GR",
+  "spend_area": "Trading & End Products",
+  "spend_class": "PR",
+  "item_type": "Standard",
+  "amount": 105.0,
+  "events": [
+    {
+      "id": "4508070640_00090:016",
+      "activity": "Create Purchase Requisition Item",
+      "timestamp": "2018-11-26T23:00:00.000Z",
+      "amount": 105.0,
+      "user": "user_451",
+      "surprise": 2.5932230949401855
+    },
+    {
+      "id": "4508070640_00090:017",
+      "activity": "Create Purchase Order Item",
+      "timestamp": "2018-11-27T05:27:00.000Z",
+      "amount": 105.0,
+      "user": "user_040",
+      "surprise": 0.013094975613057613
+    },
+    {
+      "id": "4508070640_00090:018",
+      "activity": "Vendor creates invoice",
+      "timestamp": "2018-11-28T22:59:00.000Z",
+      "amount": 105.0,
+      "user": "NONE",
+      "surprise": 0.3578467071056366
+    },
+    {
+      "id": "4508070640_00090:019",
+      "activity": "Record Goods Receipt",
+      "timestamp": "2018-12-03T07:51:00.000Z",
+      "amount": 105.0,
+      "user": "user_029",
+      "surprise": 0.11047028750181198
+    },
+    {
+      "id": "4508070640_00090:020",
+      "activity": "Record Invoice Receipt",
+      "timestamp": "2018-12-12T05:33:00.000Z",
+      "amount": 105.0,
+      "user": "user_001",
+      "surprise": 0.013470117934048176
+    },
+    {
+      "id": "4508070640_00090:021",
+      "activity": "Clear Invoice",
+      "timestamp": "2019-01-10T14:43:00.000Z",
+      "amount": 105.0,
+      "user": "user_002",
+      "surprise": 0.10041415691375732
+    }
+  ],
+  "model_nll": 0.5314198900014162,
+  "sequence_score": 1.047857105359435,
+  "model_risk": 0.4091373822099457,
+  "predicted_next": "Clear Invoice",
+  "next_confidence": 0.9044627547264099,
+  "rule_findings": [],
+  "links": [
+    {
+      "receipt_id": "4508070640_00090:019",
+      "invoice_id": "4508070640_00090:020",
+      "receipt_activity": "Record Goods Receipt",
+      "invoice_activity": "Record Invoice Receipt",
+      "score": 0.8764,
+      "method": "Mamba hidden-state similarity + amount compatibility + temporal decay"
+    }
+  ],
+  "status": "ready",
+  "source": "BPI 2019 · temporal holdout",
+  "resolution": null
+}

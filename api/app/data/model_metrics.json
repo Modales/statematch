@@ -1,0 +1,115 @@
+{
+  "dataset": {
+    "train": 6000,
+    "validation": 800,
+    "test": 800,
+    "split": "temporal 75/12.5/12.5 before caps"
+  },
+  "config": {
+    "activity_vocab": 42,
+    "category_vocab": 5,
+    "d_model": 48,
+    "d_state": 8,
+    "expand": 2,
+    "n_layers": 2,
+    "n_numeric": 3
+  },
+  "vocab_size": 42,
+  "device": "cpu",
+  "models": {
+    "mamba": {
+      "nll": 0.7142577476978791,
+      "accuracy": 0.755589691073562,
+      "macro_f1": 0.3816185765974939,
+      "parameters": 38538,
+      "training_seconds": 149.89099770800385,
+      "history": [
+        {
+          "epoch": 1,
+          "train_nll": 1.20242228051792,
+          "validation_nll": 0.8620819524195884
+        },
+        {
+          "epoch": 2,
+          "train_nll": 0.6225818820481499,
+          "validation_nll": 0.6939634041133684
+        },
+        {
+          "epoch": 3,
+          "train_nll": 0.5239849169780642,
+          "validation_nll": 0.6689397689708617
+        },
+        {
+          "epoch": 4,
+          "train_nll": 0.49536220214728444,
+          "validation_nll": 0.6450389661478606
+        }
+      ],
+      "paired_cases": 181,
+      "synthetic_deviation_auroc": 0.8698757669179816,
+      "note": "Measures separation of clean traces from explicitly injected process deviations; not fraud detection.",
+      "latency": [
+        {
+          "length": 8,
+          "ms": 10.206465332885273
+        },
+        {
+          "length": 16,
+          "ms": 7.826701416585517
+        },
+        {
+          "length": 32,
+          "ms": 7.842100666797099
+        },
+        {
+          "length": 48,
+          "ms": 7.712826332863187
+        }
+      ]
+    },
+    "transformer": {
+      "nll": 0.7166765285832297,
+      "accuracy": 0.763952892985151,
+      "macro_f1": 0.36319540542768836,
+      "parameters": 54810,
+      "training_seconds": 6.5101304999989225,
+      "history": [
+        {
+          "epoch": 1,
+          "train_nll": 1.413807278625414,
+          "validation_nll": 0.8924532195133956
+        },
+        {
+          "epoch": 2,
+          "train_nll": 0.6761647293331652,
+          "validation_nll": 0.7229114754650837
+        },
+        {
+          "epoch": 3,
+          "train_nll": 0.5725616525152919,
+          "validation_nll": 0.6607591096428554
+        },
+        {
+          "epoch": 4,
+          "train_nll": 0.532498635179306,
+          "validation_nll": 0.6555204750051951
+        }
+      ]
+    },
+    "markov": {
+      "nll": 1.1985884271659986,
+      "accuracy": 0.5644415069398546,
+      "macro_f1": 0.265194505505077,
+      "parameters": 0
+    }
+  },
+  "generated_at": "2026-11-07T12:41:52Z",
+  "model": {
+    "name": "StateSpaceProcessModel",
+    "checkpoint": "statematch_mamba.pt",
+    "attention": false,
+    "llm": false,
+    "deployment": "Portable PyTorch CPU inference",
+    "implementation": "2 selective SSM blocks, d_model=48, d_state=8, expand=2"
+  }
+}
