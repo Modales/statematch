@@ -1,0 +1,17 @@
+#cloud-config
+package_update: true
+packages:
+  - docker.io
+  - docker-compose-v2
+  - git
+  - curl
+  - ufw
+runcmd:
+  - systemctl enable --now docker
+  - git clone --depth 1 https://github.com/Modales/statematch.git /opt/statematch
+  - cd /opt/statematch && docker compose up -d --build
+  - ufw allow OpenSSH
+  - ufw allow 8000/tcp
+  - ufw --force enable
+  - curl --retry 90 --retry-delay 5 --retry-connrefused --retry-all-errors -fsS http://127.0.0.1:8000/api/health
+final_message: "StateMatch container launched. Check http://SERVER_IP:8000/api/health"
