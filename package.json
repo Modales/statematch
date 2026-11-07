@@ -1,0 +1,23 @@
+{
+  "name": "statematch",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "npm --prefix app run build",
+    "start": "python3 -m uvicorn app.main:app --app-dir api --host 0.0.0.0 --port ${PORT:-8000}",
+    "test": "PYTHONPATH=api python3 -m pytest api/tests -q",
+    "lint": "npm --prefix app run lint",
+    "train": "python3 modeling/train.py",
+    "verify": "node scripts/verify-browser.mjs",
+    "verify:production": "node scripts/verify-production.mjs",
+    "verify:checkpoint": "python3 scripts/verify_checkpoint.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0"
+  }
+}

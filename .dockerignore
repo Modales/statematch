@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+.env.*
+node_modules
+app/node_modules
+app/dist
+**/__pycache__
+*.pyc
+.pytest_cache
+*.sqlite3
+data/raw
+data/processed
+verification
+deploy/*.json
+README.md
+CREDITS.md

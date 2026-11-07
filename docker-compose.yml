@@ -1,0 +1,22 @@
+services:
+  statematch:
+    build: .
+    restart: unless-stopped
+    environment:
+      STATEMATCH_DB: /data/statematch.sqlite3
+      STATEMATCH_DEMO: "${STATEMATCH_DEMO:-true}"
+    volumes:
+      - statematch-data:/data
+    ports:
+      - "${STATEMATCH_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  statematch-data:
