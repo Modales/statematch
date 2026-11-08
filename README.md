@@ -199,6 +199,12 @@ Deployed on 2026-11-08 to Vultr Cloud Compute instance `62d33ad4-7a2a-4b11-a4e4-
 
 Eleven live API/browser checks passed, including checkpoint identity, extended metrics, counterfactual inference, desktop/mobile charts, zero console errors, and zero failed HTTP responses.
 
+### How Vultr powers the working agent
+
+The Vultr VM runs the complete application—not a static mockup or a hosted-model relay. The request path is **browser → React operations console → FastAPI → CPU PyTorch Mamba inference → deterministic controls → SQLite on the persistent `statematch-data` Docker volume**. React and the API are served by the same production container.
+
+Real tasks executed on this infrastructure include scoring BPI event traces, predicting the next activity, proposing receipt–invoice links, replaying leave-one-event-out evidence, ingesting CSV traces, and recording analyst actions and audit receipts. In the containment demonstration, **Inject exception → Duplicate invoice** sends a real trace for immediate inference. The repeated-invoice control creates a critical finding, the interface displays **Hard stop enforced** without an approval action, and the backend independently rejects an approval request with **HTTP 409**. **Hold clearance** then persists the analyst's decision and adds a verifiable SHA-256-chained receipt.
+
 This is a public HTTP demonstration without authentication or HTTPS. Do not upload sensitive data. The VM remains running and billable. Do not rerun `deploy/vultr.py` against this deployment: it creates a new VM rather than updating the existing one.
 
 ### Option A: cloud-init in the Vultr console
