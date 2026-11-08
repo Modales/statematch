@@ -70,11 +70,14 @@ try {
 
   await page.getByRole('button', { name: /Model lab/ }).click()
   await page.getByText('Held-out model comparison', { exact: true }).waitFor()
-  check('Measured model charts rendered', await page.locator('.recharts-responsive-container').count() === 2)
+  check('Measured model charts rendered', await page.locator('.chart-frame[aria-label="Model NLL comparison"] .recharts-responsive-container').count() === 1)
   await page.locator('.recharts-bar-rectangle').first().waitFor({ state: 'visible' })
   await page.locator('.recharts-line-curve').first().waitFor({ state: 'visible' })
-  check('Three measured NLL bars visible', await page.locator('.recharts-bar-rectangle').count() === 3)
-  check('Measured latency line visible', await page.locator('.recharts-line-curve').count() === 1)
+  check('Three measured NLL bars visible', await page.locator('.chart-frame[aria-label="Model NLL comparison"] .recharts-bar-rectangle').count() === 3)
+  check('Measured latency line visible', await page.locator('.chart-frame[aria-label="Mamba latency chart"] .recharts-line-curve').count() === 1)
+  check('Extended academic evaluation rendered', await page.getByTestId('extended-evaluation').isVisible())
+  check('Temporal drift chart visible', await page.locator('.chart-frame[aria-label="Later-period temporal drift chart"] .recharts-line-curve').count() === 1)
+  check('Three deviation-type bars visible', await page.locator('.chart-frame[aria-label="Deviation AUROC by injection type"] .recharts-bar-rectangle').count() === 3)
   await page.screenshot({ path: `${output}/model-lab-desktop.png`, fullPage: true })
   report.screenshots.push('model-lab-desktop.png')
 
@@ -105,6 +108,10 @@ try {
   await mobilePage.getByRole('button', { name: /Model lab/ }).click()
   await mobilePage.getByText('Held-out model comparison', { exact: true }).waitFor()
   check('Mobile navigation works', true)
+  const labWidths = await mobilePage.evaluate(() => ({ scroll: document.documentElement.scrollWidth, viewport: window.innerWidth }))
+  check('No mobile Model Lab overflow', labWidths.scroll <= labWidths.viewport)
+  await mobilePage.screenshot({ path: `${output}/model-lab-mobile.png`, fullPage: true })
+  report.screenshots.push('model-lab-mobile.png')
   await mobile.close()
 
   check('Zero browser console errors', report.consoleErrors.length === 0)
