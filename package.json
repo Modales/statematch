@@ -13,6 +13,7 @@
     "test": "PYTHONPATH=api python3 -m pytest api/tests -q",
     "lint": "npm --prefix app run lint",
     "train": "python3 modeling/train.py",
+    "evaluate:extended": "python3 modeling/evaluate_extended.py",
     "verify": "node scripts/verify-browser.mjs",
     "verify:production": "node scripts/verify-production.mjs",
     "verify:checkpoint": "python3 scripts/verify_checkpoint.py"

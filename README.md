@@ -80,6 +80,28 @@ Protocol:
 
 **Interpretation:** Mamba learned useful process structure and had slightly lower NLL and higher macro F1 than this particular Transformer run, while the Transformer had higher accuracy. This is one bounded experiment—not evidence of universal architectural superiority, real fraud detection, production savings, or superiority on every procurement process.
 
+## Extended academic evaluation
+
+`modeling/evaluate_extended.py` freezes the published checkpoint, replicates the original 800-case anchor, and scores the complete 2,663-case temporal test. The remaining 1,863 cases form a separate later-period evaluation with no retraining, threshold tuning, or test-case selection. Confidence intervals use 300 whole-case percentile bootstrap resamples, preserving within-case token correlation.
+
+| Evaluation slice | Cases | NLL ↓ | Accuracy ↑ | Macro F1 ↑ |
+|---|---:|---:|---:|---:|
+| Original anchor | 800 | 0.7143 | 75.56% | 0.3816 |
+| Complete temporal test | 2,663 | 0.8795 | 70.69% | 0.3580 |
+| Later-period subset | 1,863 | 0.9538 | 68.50% | 0.3546 |
+
+The replicated anchor NLL differs from the original report by only `1.64e-08`. Later-period 95% intervals are NLL `0.9025–1.0060`, accuracy `67.05%–69.81%`, and macro F1 `0.3388–0.4030`. Three equal-count, case-end ordered windows have NLL `0.9070`, `0.7530`, and `1.2381`: performance is not temporally stable, and the final window is materially harder. This is a monitoring/retraining requirement, not a hidden failure or an architecture-superiority claim.
+
+The expanded deviation experiment uses at most one deterministic mutation per source case. Its AUROC is **0.9119** with a case-bootstrap 95% interval of **0.9028–0.9217**; 97.75% of mutated traces score higher than their paired original.
+
+| Injected deviation | Pairs | AUROC | Mutated score higher than original |
+|---|---:|---:|---:|
+| Duplicate invoice | 690 | 0.8601 | 94.49% |
+| Premature unblock | 887 | 0.9249 | 99.55% |
+| Clearance before goods receipt | 286 | 0.9867 | 100.00% |
+
+Long traces remain difficult: later-period accuracy is 72.77% for 5–8-event cases, 58.77% for 9–16 events, and 44.86% for 17+ events. The 17+ bucket contains only 31 cases, so it is diagnostic rather than a precise subgroup estimate. All slice, category, coverage, and deviation details are stored under `extended_evaluation` in both metrics files. These are injected process deviations on real BPI traces—not observed fraud labels.
+
 ## Data provenance
 
 Source: **BPI Challenge 2019**, published by 4TU.Centre for Research Data.
@@ -133,22 +155,22 @@ This starts Uvicorn on port 8000 and Vite on the requested port, with `/api` pro
 ## Verify
 
 ```bash
-npm test                    # 6 API/workflow tests
+npm test                    # 6 API/workflow tests + 4 extended-evaluation tests
 npm run lint                # React/TypeScript lint
 npm run build               # Production frontend
 npm run verify:checkpoint   # Byte identity + inference through bundled checkpoint
 npx playwright install chromium
-npm run verify              # 16 live desktop/mobile workflow checks
-npm run verify:production   # Cold start, compiled UI, model, charts, SPA fallback
+npm run verify              # 20 live desktop/mobile workflow checks
+npm run verify:production   # 10 cold-start, compiled UI, model, chart, and API checks
 ```
 
 The browser scripts start their own temporary servers and stop them in `finally`. They write process evidence to the ignored `verification/` directory. The checkpoint verifier checks the exact SHA-256 and exercises the base64 fallback.
 
 Verified in the delivery environment:
 
-- 6 backend tests passed.
-- 16 browser checks passed, including CSV import, injection, replay, actions, audit, visible charts, and mobile navigation.
-- Production cold start passed with zero browser console errors and zero failed HTTP responses.
+- 10 backend and extended-evaluation tests passed.
+- 20 browser checks passed, including CSV import, injection, replay, actions, audit, all four Model Lab charts, and mobile overflow.
+- 10 production checks passed with zero browser console errors and zero failed HTTP responses.
 - Frontend lint passed; production dependency audits reported zero vulnerabilities.
 - Checkpoint SHA-256: `5c07a9217910e732debdd29f71028838b468875d815deea6c7f4d8afd9aa07e5`.
 
@@ -243,9 +265,10 @@ Interactive API documentation is available at `/docs`.
 python3 modeling/prepare.py
 python3 modeling/train.py --epochs 4 --max-train 6000 --max-eval 800
 python3 modeling/export_cases.py
+npm run evaluate:extended
 ```
 
-Training defaults to CPU and writes a new checkpoint and measured metrics. Export regenerates the scored application cases. Existing SQLite state is intentionally not overwritten; use a new `STATEMATCH_DB` path to seed a fresh demo without losing prior actions.
+Training defaults to CPU and writes a new checkpoint and measured metrics. Export regenerates the scored application cases. The extended command evaluates the bundled base64 checkpoint on the complete chronological holdout and updates both metrics files; it does not retrain or modify model weights. Existing SQLite state is intentionally not overwritten; use a new `STATEMATCH_DB` path to seed a fresh demo without losing prior actions.
 
 The raw checkpoint is ignored by Git to keep ordinary source operations lightweight. The exact trained bytes are committed as `modeling/artifacts/statematch_mamba.pt.base64`. If the raw `.pt` file is absent, `ModelService` decodes the bundled base64 in memory and loads it with `weights_only=True`. Training regenerates the raw file, which then takes precedence. The base64 file is not a substitute model or a collection of precomputed scores; it is the complete serialized PyTorch checkpoint.
 
@@ -276,6 +299,9 @@ Dockerfile               CPU production image
 
 - Mamba paper: https://arxiv.org/abs/2312.00752
 - BPI Challenge 2019: https://doi.org/10.4121/uuid:d06aff4b-79f0-45e6-8ec8-e19730c248f1
+- Predictive-monitoring review and benchmark: https://dl.acm.org/doi/abs/10.1145/3301300
+- Event-log anomaly detection review: https://link.springer.com/article/10.1007/s12599-023-00794-y
+- BINet anomaly detection: https://arxiv.org/abs/1902.03155
 - Source repository: https://github.com/Modales/statematch
 
 See `CREDITS.md` for attribution and third-party notices.
