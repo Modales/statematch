@@ -19,4 +19,4 @@ StateMatch uses FastAPI, Uvicorn, Pydantic, PyTorch, NumPy, scikit-learn, React,
 
 No external LLM, hosted model API, stock photography, or generated demonstration imagery is used by the application. All measured model results come from the included training/evaluation pipeline; latency values are device-specific.
 
-No license is asserted for the BPI source data beyond the publisher's own terms. No hosted deployment or production customer outcome is asserted.
+No license is asserted for the BPI source data beyond the publisher's own terms. The public Vultr demonstration and its verification results are documented in `README.md`; no production customer outcome is asserted.

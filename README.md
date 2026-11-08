@@ -171,6 +171,7 @@ Verified in the delivery environment:
 - 10 backend and extended-evaluation tests passed.
 - 20 browser checks passed, including CSV import, injection, replay, actions, audit, all four Model Lab charts, and mobile overflow.
 - 10 production checks passed with zero browser console errors and zero failed HTTP responses.
+- 11 live Vultr API/browser checks passed, including exact checkpoint identity, extended metrics, 27 seed cases, counterfactual inference, desktop/mobile charts, and no mobile page overflow, console errors, or failed HTTP responses.
 - Frontend lint passed; production dependency audits reported zero vulnerabilities.
 - Checkpoint SHA-256: `5c07a9217910e732debdd29f71028838b468875d815deea6c7f4d8afd9aa07e5`.
 
@@ -191,7 +192,14 @@ docker compose down          # preserves the database volume
 
 ## Deploy on Vultr
 
-No hosted URL is claimed by this repository. These are executable deployment inputs; an actual VM requires your Vultr account and incurs charges.
+**Live demo:** http://64.176.194.39:8000  
+**Health:** http://64.176.194.39:8000/api/health
+
+Deployed on 2026-11-08 to Vultr Cloud Compute instance `62d33ad4-7a2a-4b11-a4e4-4873938e10d0` in `ewr`, using `vc2-2c-4gb` (2 vCPU, 4 GB RAM; Vultr estimate $20/month), Ubuntu 24.04. Cloud-init completed and the container is healthy.
+
+Eleven live API/browser checks passed, including checkpoint identity, extended metrics, counterfactual inference, desktop/mobile charts, zero console errors, and zero failed HTTP responses.
+
+This is a public HTTP demonstration without authentication or HTTPS. Do not upload sensitive data. The VM remains running and billable. Do not rerun `deploy/vultr.py` against this deployment: it creates a new VM rather than updating the existing one.
 
 ### Option A: cloud-init in the Vultr console
 
