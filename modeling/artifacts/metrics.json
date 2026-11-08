@@ -103,5 +103,279 @@
       "parameters": 0
     }
   },
-  "generated_at": "2026-11-07T12:41:52Z"
+  "generated_at": "2026-11-07T12:41:52Z",
+  "extended_evaluation": {
+    "protocol": "Frozen checkpoint; chronological holdout; no retraining, threshold tuning, or test-case selection",
+    "source_dataset": {
+      "name": "BPI Challenge 2019",
+      "doi": "10.4121/uuid:d06aff4b-79f0-45e6-8ec8-e19730c248f1",
+      "sample_cases": 21302
+    },
+    "checkpoint_sha256": "5c07a9217910e732debdd29f71028838b468875d815deea6c7f4d8afd9aa07e5",
+    "bootstrap": {
+      "method": "Case-level percentile bootstrap; whole traces resampled with replacement",
+      "repetitions": 300,
+      "seed": 1907
+    },
+    "anchor_800": {
+      "cases": 800,
+      "tokens": 5859,
+      "nll": 0.7142577313038041,
+      "accuracy": 0.755589691073562,
+      "macro_f1": 0.3816185765974939,
+      "unknown_events": 2,
+      "unknown_event_rate": 0.000395335046451868,
+      "cases_with_unknown_activity": 2,
+      "first_event": "2017-11-30T22:59:00.000Z",
+      "last_event": "2019-01-04T22:59:00.000Z",
+      "original_reported_nll": 0.7142577476978791,
+      "nll_absolute_delta": 1.6394074986436635e-08
+    },
+    "full_temporal_test": {
+      "cases": 2663,
+      "tokens": 18890,
+      "nll": 0.8794891478287725,
+      "accuracy": 0.7068819481206988,
+      "macro_f1": 0.3580011229507402,
+      "unknown_events": 34,
+      "unknown_event_rate": 0.0020952733099155727,
+      "cases_with_unknown_activity": 34,
+      "first_event": "2017-11-30T22:59:00.000Z",
+      "last_event": "2019-01-18T13:31:00.000Z"
+    },
+    "later_period": {
+      "cases": 1863,
+      "tokens": 13031,
+      "nll": 0.9537805198969017,
+      "accuracy": 0.684981966080884,
+      "macro_f1": 0.35459353066106686,
+      "unknown_events": 32,
+      "unknown_event_rate": 0.0028653295128939827,
+      "cases_with_unknown_activity": 32,
+      "first_event": "2017-12-29T22:59:00.000Z",
+      "last_event": "2019-01-18T13:31:00.000Z",
+      "nll_ci95": [
+        0.902504128203341,
+        1.0059577362984087
+      ],
+      "accuracy_ci95": [
+        0.6705359045189173,
+        0.6981241742047765
+      ],
+      "macro_f1_ci95": [
+        0.3388022372464847,
+        0.40301395005166596
+      ]
+    },
+    "later_windows": [
+      {
+        "name": "Later window 1",
+        "cases": 621,
+        "tokens": 4118,
+        "nll": 0.906983536487647,
+        "accuracy": 0.6898980087421078,
+        "macro_f1": 0.4393457908756087,
+        "unknown_events": 11,
+        "unknown_event_rate": 0.0031455533314269373,
+        "cases_with_unknown_activity": 11,
+        "first_event": "2018-01-02T15:00:00.000Z",
+        "last_event": "2019-01-10T13:22:00.000Z"
+      },
+      {
+        "name": "Later window 2",
+        "cases": 621,
+        "tokens": 4827,
+        "nll": 0.7530414060279896,
+        "accuracy": 0.7526413921690491,
+        "macro_f1": 0.4037598402388894,
+        "unknown_events": 3,
+        "unknown_event_rate": 0.0007132667617689016,
+        "cases_with_unknown_activity": 3,
+        "first_event": "2018-01-02T15:20:00.000Z",
+        "last_event": "2019-01-11T09:43:00.000Z"
+      },
+      {
+        "name": "Later window 3",
+        "cases": 621,
+        "tokens": 4086,
+        "nll": 1.2380873432754012,
+        "accuracy": 0.6000978952520802,
+        "macro_f1": 0.3670516425239475,
+        "unknown_events": 18,
+        "unknown_event_rate": 0.005194805194805195,
+        "cases_with_unknown_activity": 18,
+        "first_event": "2017-12-29T22:59:00.000Z",
+        "last_event": "2019-01-18T13:31:00.000Z"
+      }
+    ],
+    "window_method": "Three equal-count contiguous partitions of the later-period cases, ordered by case end timestamp",
+    "length_buckets": [
+      {
+        "name": "2\u20134 events",
+        "cases": 491,
+        "tokens": 2110,
+        "nll": 0.8963827714394619,
+        "accuracy": 0.6990521327014217,
+        "macro_f1": 0.28292839158257066,
+        "unknown_events": 15,
+        "unknown_event_rate": 0.00926497838171711,
+        "cases_with_unknown_activity": 15,
+        "first_event": "2018-06-01T10:24:00.000Z",
+        "last_event": "2019-01-17T20:55:00.000Z"
+      },
+      {
+        "name": "5\u20138 events",
+        "cases": 1239,
+        "tokens": 8538,
+        "nll": 0.7803271046062352,
+        "accuracy": 0.7276879831342234,
+        "macro_f1": 0.3193549685926041,
+        "unknown_events": 13,
+        "unknown_event_rate": 0.0017810658994382791,
+        "cases_with_unknown_activity": 13,
+        "first_event": "2018-01-02T15:00:00.000Z",
+        "last_event": "2019-01-18T13:31:00.000Z"
+      },
+      {
+        "name": "9\u201316 events",
+        "cases": 102,
+        "tokens": 1215,
+        "nll": 1.3781802766117048,
+        "accuracy": 0.5876543209876544,
+        "macro_f1": 0.364217888691382,
+        "unknown_events": 3,
+        "unknown_event_rate": 0.0026954177897574125,
+        "cases_with_unknown_activity": 3,
+        "first_event": "2018-01-16T12:10:00.000Z",
+        "last_event": "2019-01-17T15:57:00.000Z"
+      },
+      {
+        "name": "17+ events",
+        "cases": 31,
+        "tokens": 1168,
+        "nll": 1.8839250443732902,
+        "accuracy": 0.4486301369863014,
+        "macro_f1": 0.335267650815337,
+        "unknown_events": 1,
+        "unknown_event_rate": 0.0008795074758135445,
+        "cases_with_unknown_activity": 1,
+        "first_event": "2017-12-29T22:59:00.000Z",
+        "last_event": "2019-01-17T15:38:00.000Z"
+      }
+    ],
+    "categories": [
+      {
+        "name": "2-way match",
+        "cases": 35,
+        "tokens": 230,
+        "nll": 1.080299645403157,
+        "accuracy": 0.6695652173913044,
+        "macro_f1": 0.5239501814141104,
+        "unknown_events": 0,
+        "unknown_event_rate": 0.0,
+        "cases_with_unknown_activity": 0,
+        "first_event": "2018-02-09T22:59:00.000Z",
+        "last_event": "2019-01-16T16:23:00.000Z"
+      },
+      {
+        "name": "3-way match, invoice after GR",
+        "cases": 106,
+        "tokens": 1592,
+        "nll": 1.7648696984777499,
+        "accuracy": 0.48680904522613067,
+        "macro_f1": 0.3239118524243526,
+        "unknown_events": 4,
+        "unknown_event_rate": 0.0026917900403768506,
+        "cases_with_unknown_activity": 4,
+        "first_event": "2017-12-29T22:59:00.000Z",
+        "last_event": "2019-01-17T15:38:00.000Z"
+      },
+      {
+        "name": "3-way match, invoice before GR",
+        "cases": 1678,
+        "tokens": 11034,
+        "nll": 0.8385995403458854,
+        "accuracy": 0.7124342940003625,
+        "macro_f1": 0.3621922250892531,
+        "unknown_events": 27,
+        "unknown_event_rate": 0.0028858486532706284,
+        "cases_with_unknown_activity": 27,
+        "first_event": "2018-01-19T08:58:00.000Z",
+        "last_event": "2019-01-18T13:31:00.000Z"
+      },
+      {
+        "name": "Consignment",
+        "cases": 44,
+        "tokens": 175,
+        "nll": 0.671229418175561,
+        "accuracy": 0.7771428571428571,
+        "macro_f1": 0.29410096175154016,
+        "unknown_events": 1,
+        "unknown_event_rate": 0.007633587786259542,
+        "cases_with_unknown_activity": 1,
+        "first_event": "2018-06-01T10:24:00.000Z",
+        "last_event": "2019-01-17T20:55:00.000Z"
+      }
+    ],
+    "deviations": {
+      "pairs": 1863,
+      "auroc": 0.9119000717132141,
+      "average_precision": 0.8659806601989328,
+      "score_increase_rate": 0.9774557165861514,
+      "median_score_delta": 1.9452425553525483,
+      "auroc_ci95": [
+        0.9028387945149908,
+        0.9216954549553715
+      ],
+      "score_increase_rate_ci95": [
+        0.9715512614063339,
+        0.9838969404186796
+      ],
+      "by_kind": {
+        "duplicate_invoice": {
+          "pairs": 690,
+          "auroc": 0.8601291745431632,
+          "average_precision": 0.7941602027271915,
+          "score_increase_rate": 0.9449275362318841,
+          "median_score_delta": 1.1806936938155974
+        },
+        "premature_unblock": {
+          "pairs": 887,
+          "auroc": 0.9248712137870202,
+          "average_precision": 0.8689291485362449,
+          "score_increase_rate": 0.9954904171364148,
+          "median_score_delta": 2.0106761623932305
+        },
+        "clear_before_gr": {
+          "pairs": 286,
+          "auroc": 0.9867475182160497,
+          "average_precision": 0.9782012022610568,
+          "score_increase_rate": 1.0,
+          "median_score_delta": 3.519532048364969
+        }
+      },
+      "assignment": "SHA1(case_id) selects the first applicable deviation; at most one pair per source case",
+      "score": "Mean token NLL + 0.35 \u00d7 90th-percentile token NLL, including EOS as in the original experiment",
+      "note": "Explicitly injected process deviations on real BPI traces; not observed fraud labels or evidence of production fraud detection"
+    },
+    "academic_basis": [
+      {
+        "citation": "Teinemaa et al. (2019), Outcome-oriented predictive process monitoring: Review and benchmark",
+        "url": "https://dl.acm.org/doi/abs/10.1145/3301300",
+        "use": "Chronological evaluation and explicit benchmarking protocol"
+      },
+      {
+        "citation": "Ko and Comuzzi (2023), A Systematic Review of Anomaly Detection for Business Process Event Logs",
+        "url": "https://link.springer.com/article/10.1007/s12599-023-00794-y",
+        "use": "Bounded interpretation of event-log anomaly evaluation"
+      },
+      {
+        "citation": "Nolle et al. (2019), BINet: Multivariate business process anomaly detection using deep learning",
+        "url": "https://arxiv.org/abs/1902.03155",
+        "use": "Case-level anomaly scoring and deviation-specific reporting"
+      }
+    ],
+    "generated_at": "2026-11-08T07:11:25Z",
+    "runtime_seconds": 6.320859084022231
+  }
 }
